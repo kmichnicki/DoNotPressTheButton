@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do Not Press the Button</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20%;
+            background-color: black;
+        }
+        .warning-text {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+        }
+        .big-button {
+            font-size: 2rem;
+            padding: 50px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 200px;
+            height: 200px;
+        }
+       .big-button:active {
+     	    background-color: darkred; /* Changes color when pressed */
+    	    transform: scale(0.9); /* Makes the button shrink slightly */
+	}
+        .message {
+            font-size: 2rem;
+            color: white;
+            margin-top: 20px;
+        }
+	.counter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="warning-text">Do not press the button!</div>
+    <button class="big-button" onclick="handleClick()">Do not press</button>
+    <div class="message" id="message"></div>
+    <div class="counter" id="counter" visible="false"></div>
+
+    <script>
+        function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements in place
+    }
+    return array; // Returning the array is optional, it's already modified in place
+}
+        var messages = [
+    "The universe is disappointed with you.",
+    "How could you?",
+    "You had one job...",
+    "Great, now we have to start over.",
+    "Seriously?!",
+    "It was forbidden!",
+    "I can't believe you pressed it!",
+    "You are clearly not a good listener.",
+    "Oops... too late now.",
+    "That was NOT the button you were looking for.",
+    "Well, now you’ve done it.",
+    "Look at what you’ve become!",
+    "The audacity!",
+    "Are you proud of yourself?",
+    "In a parallel universe, you *didn't* press it. Lucky them.",
+    "Do you even *follow* instructions?",
+    "I hope it was worth it!",
+    "Oh, no! Anyway...",
+    "Does this make you feel powerful?",
+    "Your chaos energy is off the charts.",
+    "Your button-pressing privileges have been revoked.",
+    "There goes humanity’s last hope.",
+    "At least you're consistent in making bad choices.",
+    "Did you really think that would go unnoticed?",
+    "I warned you. Multiple times.",
+    "The prophecy foretold this day... thanks for nothing.",
+    "You're why we can't have nice things.",
+    "Oops! A kitten just lost its wings.",
+    "If you're looking for applause, you've come to the wrong place.",
+    "Great! Now I have to call tech support.",
+    "I hope the guilt keeps you up tonight.",
+    "There’s no undo button for this, by the way.",
+    "Next time, try reading the label.",
+    "Somewhere, someone is facepalming hard right now.",
+    "Congratulations! You’ve joined the dark side."
+];
+
+	var index = 0;
+        var clicks = 0;
+        var max_clicks = 20;
+        function handleClick() {
+            if (index === 0) {
+       		 messages = shuffleArray(messages)
+            }
+            index = (index + 1) % messages.length;
+            document.getElementById('message').textContent = messages[index];
+
+            let counter = document.getElementById('counter');
+            if (clicks === 0) {
+		counter.visibility=true;
+            }
+	    counter.innerHTML = "Clicks left until ... " + (max_clicks - clicks);
+	    clicks = clicks + 1;
+            if (clicks === max_clicks + 1) {
+		runRickRoll();
+            }
+        }
+
+	function runRickRoll() {
+    // Clear all existing content from the body
+    document.body.innerHTML = '';
+
+    // Ensure no scrolling
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
+    document.body.style.height = '100vh';
+    document.body.style.overflow = 'hidden';
+    document.body.style.display = 'flex';
+    document.body.style.alignItems = 'center';
+    document.body.style.justifyContent = 'center';
+
+    // Create video element
+    const video = document.createElement('video');
+    video.src = 'https://shattereddisk.github.io/rickroll/rickroll.mp4';
+    video.autoplay = true;
+    video.loop = true;
+    // video.muted = true; // Autoplay requires muted in many browsers
+
+    // Ensure video takes maximum space without scrolling
+    video.style.width = '100%';
+    video.style.height = '100%';
+    video.style.objectFit = 'contain'; // Maintain aspect ratio without cropping
+
+    // Append video to the body
+    document.body.appendChild(video);
+}
+    </script>
+</body>
+</html>
